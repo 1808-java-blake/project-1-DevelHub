@@ -11,8 +11,8 @@ import { userRouter } from './routers/user-router';
 const app = express();
 
 // set the port
-// const port = process.env.PORT || 3000; // will use port from computers environment variables or 3000 if there is none
-const port = 4000;
+const port = process.env.PORT || 4000; // will use port from computers environment variables or 3000 if there is none
+// const port = 4000;
 app.set('port', port);
 
 const sess = {
@@ -45,7 +45,7 @@ app.use(bodyParser.json());
 
 // allow cross origins
 app.use((req, resp, next) => {
-  (process.env.MOVIE_API_STAGE === 'prod')
+  (process.env.ERS_API_STAGE === 'prod')
     ? resp.header('Access-Control-Allow-Origin', process.env.DEMO_APP_URL)
     : resp.header('Access-Control-Allow-Origin', `http://1808-demo-bucket-mubaraq.s3-website-us-east-1.amazonaws.com`);
   resp.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept');
