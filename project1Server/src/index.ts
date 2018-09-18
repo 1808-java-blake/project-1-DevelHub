@@ -43,11 +43,13 @@ app.use(
 // use the body parser to convert request json
 app.use(bodyParser.json());
 
-// allows cors headers
+// allow cross origins
 app.use((req, resp, next) => {
-  resp.header("Access-Control-Allow-Origin", "http://localhost:3000");
-  resp.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
-  resp.header("Access-Control-Allow-Credentials", "true");
+  (process.env.ERS_API_STAGE === 'prod')
+    ? resp.header('Access-Control-Allow-Origin', process.env.DEMO_APP_URL)
+    : resp.header('Access-Control-Allow-Origin', `http://1808-demo-bucket-mubaraq.s3-website-us-east-1.amazonaws.com`);
+  resp.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept');
+  resp.header('Access-Control-Allow-Credentials', 'true');
   next();
 });
 // allow cross origins
